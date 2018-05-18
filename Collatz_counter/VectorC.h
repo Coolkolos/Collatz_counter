@@ -18,8 +18,9 @@ public:
 	~VectorC();
 
 	T	 get(int n);
-	void put(T& val, int n);
+	void put(T val, int n);
 	void putNext(T& val);
+	void shrinkTo(int n);
 
 	T&	 getVal(int n);
 	int  getLen();
@@ -90,7 +91,7 @@ T VectorC<T>::get(int n) {
 }
 
 template<typename T>
-void VectorC<T>::put(T& val, int n) {
+void VectorC<T>::put(T val, int n) {
 
 	if (n >= aloc) { this->expand(n - aloc + STEP - (n % STEP)); }
 
@@ -108,6 +109,15 @@ template<typename T>
 void VectorC<T>::putNext(T& val) {
 
 	this->put(len + 1, val);
+}
+
+template<typename T>
+void VectorC<T>::shrinkTo(int n) {
+	len = n;
+
+	if (aloc > len + STEP) {
+		this->expand(len + STEP - (len % STEP));
+	}
 }
 
 template<typename T>
